@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>RPG - Dragon Repeller</title>
+  <link rel="stylesheet" href="styles.css">
+  <script  src="script.js"></script>
+  <script  src="clock.js"></script>
+</head>
+
+<body onload="currentTime(); return false;">
+<div id="clock"></div>
+<div id="CG-box">
+    <form id="CG-identity-form" action="">
+        <div id="CG-identity">
+            <fieldset>
+                <h3>What is your name, Nymerian?</h3>
+                    <label id="CG-name-label" for="name"><input id="CG-name" name="name" type="text" placeholder="Type in your character's name"/ required></label>
+                <h3>Which kingdom are you from?</h3>
+                    <label for="kingdom">
+                      <legend>According to which kingdom you're from, you'll obtain certain advantages and disadvantages. Check out our <a href="#" target="_blank">reference page</a> [COMING SOON] to get an idea of what to expect.</legend>
+                        <select id="kingdom-selector" name="kingdom" required>
+                        <option value="">Select your kingdom</option>
+                        <option value="The Kingdom of Humans">The Kingdom of Humans</option>
+                        <option value="The Kingdom of Elves">The Kingdom of Elves</option>
+                        <option value="The Kingdom of Dwarves">The Kingdom of Dwarves</option>
+                        </select>
+                    </label>
+                <h3>Which guild do you belong to?</h3>
+                    <label for="guild">
+                      <legend>According to which guild you choose to belong to, you'll obtain certain advantages and disadvantages. Check out our <a href="#" target="_blank">reference page</a> [COMING SOON] to get an idea of what to expect.</legend>
+                        <select id="guild-selector" name="guild" required>
+                        <option value="">Select your guild</option>
+                        <option value="The Guild of Assasins">The Guild of Assasins</option>
+                        <option Galue="The Guild of Thieves">The Guild of Thieves</option>
+                        <option Assasins="The Guild of Sorcerers">The Guild of Sorcerers</option>
+                        <option Assasins="The Guild of Faith">The Guild of Faith</option>
+                        </select>
+                    </label>
+                </fieldset>
+                <input id="submit-1" type="submit" value="Submit" onclick="identitySetUp(); return false;">
+        </div>
+    </form>
+</div>
+
+<div id="game">
+  <div id="identity">
+    <span class="identity-feature"><strong>Name: </strong><span id="nameText"></span></span>
+    <span class="identity-feature"><strong>Kingdom: </strong><span id="kingdomText"></span></span>
+    <span class="identity-feature"><strong>Guild: </strong><span id="guildText"></span></span>
+  </div>
+
+  <div id="stats">
+    <span id="health" class="stat"><strong>Health: </strong><span id="healthQty">100</span>/<span id="healthBase">100</span></span>
+    <span id="mana" class="stat"><strong>Mana: </strong><span id="manaQty">0</span></span>
+    <span id="experience" class="stat"><strong>Experience: </strong><span id="experienceQty">0</span></span>
+  </div>
+  
+   <form id="CG-physical-attributes-form" action="">
+    <div id="CG-physical-attributes">
+        <fieldset>
+            <h2>Physical Attributes</h2>
+              <p>Here, you get to choose your <strong>physical attributes</strong>. A zero-level attribute can be achieved thru illness, magic, potions, accidents, but not in its creation. It's up to the player to keep playing the game with a zero-level attribute character.</p>
+                <ul>
+                  <li>Your <strong>strength</strong> determines your brute force — the one you use to throw something as far as possible or to tighten a knot.</li>
+                  <li>Your <strong>dexterity</strong> determines your capability to handle things gracefully — like using weapons or climbing a tree.</li>
+                  <li>Your <strong>stamina</strong> determines how much physical effort and damage you're able to resist.</li>
+                </ul>
+              <p><strong>Important</strong>: You're up to distribute 6 points in total.</p>
+            <h5>Value legend</h5>
+              <ol>
+                <li><strong>Under average</strong> - You are not as good or capable as the rest of living (or undead) beings who surround you.</li>
+                <li><strong>Average</strong> - You are just as good or capable as most of living beings (or undead) around you.</li>
+                <li><strong>Above average</strong> - You are slightly better or more capable than the the rest of living beings (or undead) who surround you.</li>
+                <li><strong>Excellent</strong> - You are much better or much more capable than many of the living (or undead) beings around you.</li>
+                <li><strong>Master</strong> - You are so incredibly better or more capable than the rest of living (or undead) beings who you coexist with.</li>
+              </ol>
+            <h3>Strength</h3>
+        <label for="strength-1"><input id="strength-1" value="1" type="radio" name="strength" class="inline" required/>1</label>
+        <label for="strength-2"><input id="strength-2" value="2" type="radio" name="strength" class="inline" required checked="checked"/>2</label>
+        <label for="strength-3"><input id="strength-3" value="3" type="radio" name="strength" class="inline" required/>3</label>
+        <label for="strength-4"><input id="strength-4" value="4" type="radio" name="strength" class="inline" required/>4</label>
+        <label for="strength-5"><input id="strength-5" value="5" type="radio" name="strength" class="inline" required/>5</label>
+            <h3>Dexterity</h3>
+        <label for="dexterity-1"><input id="dexterity-1" value="1" type="radio" name="dexterity" class="inline" required/>1</label>
+        <label for="dexterity-2"><input id="dexterity-2" value="2" type="radio" name="dexterity" class="inline" required checked="checked"/>2</label>
+        <label for="dexterity-3"><input id="dexterity-3" value="3" type="radio" name="dexterity" class="inline" required/>3</label>
+        <label for="dexterity-4"><input id="dexterity-4" value="4" type="radio" name="dexterity" class="inline" required/>4</label>
+        <label for="dexterity-5"><input id="dexterity-5" value="5" type="radio" name="dexterity" class="inline" required/>5</label>
+            <h3>Stamina</h3>
+        <label for="stamina-1"><input id="stamina-1" value="1" type="radio" name="stamina" class="inline" required/>1</label>
+        <label for="stamina-2"><input id="stamina-2" value="2" type="radio" name="stamina" class="inline" required checked="checked"/>2</label>
+        <label for="stamina-3"><input id="stamina-3" value="3" type="radio" name="stamina" class="inline" required/>3</label>
+        <label for="stamina-4"><input id="stamina-4" value="4" type="radio" name="stamina" class="inline" required/>4</label>
+        <label for="stamina-5"><input id="stamina-5" value="5" type="radio" name="stamina" class="inline" required/>5</label>
+            </fieldset>
+            <input id="submit-2" type="submit" value="Submit" onclick="physicalAttributesSetUp(); return false;">
+    </div>
+</form>
+
+<form id="CG-social-attributes-form" action="">
+  <div id="CG-social-attributes">
+      <fieldset>
+            <h2>Social Attributes</h2>
+            <p>Here, you get to choose your <strong>social attributes</strong>:</p>
+            <ul>
+              <li>Your <strong>charisma</strong> determines how likeable you are once you start interacting with living (or undead) beings — in a conversation or a public speech.</li>
+              <li>Your <strong>looks</strong> determines how much you match the beauty standards of your kingdom (as well as of others).</li>
+              <li>Your <strong>vibe</strong> determines how you are regarded without having to engage in any sort of interaction with your peers.</li>
+            </ul>
+          <p><strong>Important</strong>: You're up to distribute 6 points in total.</p>
+        <h5>Value legend</h5>
+          <ol>
+            <li><strong>Under average</strong> - You are not as good or capable as the rest of living (or undead) beings who surround you.</li>
+            <li><strong>Average</strong> - You are just as good or capable as most of living beings (or undead) around you.</li>
+            <li><strong>Above average</strong> - You are slightly better or more capable than the the rest of living beings (or undead) who surround you.</li>
+            <li><strong>Excellent</strong> - You are much better or much more capable than many of the living (or undead) beings around you.</li>
+            <li><strong>Master</strong> - You are so incredibly better or more capable than the rest of living (or undead) beings who you coexist with.</li>
+          </ol>
+          <h3>Charisma</h3>
+      <label for="charisma-1"><input id="charisma-1" value="1" type="radio" name="charisma" class="inline" required/>1</label>
+      <label for="charisma-2"><input id="charisma-2" value="2" type="radio" name="charisma" class="inline" required checked="checked"/>2</label>
+      <label for="charisma-3"><input id="charisma-3" value="3" type="radio" name="charisma" class="inline" required/>3</label>
+      <label for="charisma-4"><input id="charisma-4" value="4" type="radio" name="charisma" class="inline" required/>4</label>
+      <label for="charisma-5"><input id="charisma-5" value="5" type="radio" name="charisma" class="inline" required/>5</label>
+          <h3>Looks</h3>
+      <label for="looks-1"><input id="looks-1" value="1" type="radio" name="looks" class="inline" required/>1</label>
+      <label for="looks-2"><input id="looks-2" value="2" type="radio" name="looks" class="inline" required checked="checked"/>2</label>
+      <label for="looks-3"><input id="looks-3" value="3" type="radio" name="looks" class="inline" required/>3</label>
+      <label for="looks-4"><input id="looks-4" value="4" type="radio" name="looks" class="inline" required/>4</label>
+      <label for="looks-5"><input id="looks-5" value="5" type="radio" name="looks" class="inline" required/>5</label>
+          <h3>Vibe</h3>
+      <label for="vibe-1"><input id="vibe-1" value="1" type="radio" name="vibe" class="inline" required/>1</label>
+      <label for="vibe-2"><input id="vibe-2" value="2" type="radio" name="vibe" class="inline" required checked="checked"/>2</label>
+      <label for="vibe-3"><input id="vibe-3" value="3" type="radio" name="vibe" class="inline" required/>3</label>
+      <label for="vibe-4"><input id="vibe-4" value="4" type="radio" name="vibe" class="inline" required/>4</label>
+      <label for="vibe-5"><input id="vibe-5" value="5" type="radio" name="vibe" class="inline" required/>5</label>
+          </fieldset>
+          <input id="submit-3" type="submit" value="Submit" onclick="socialAttributesSetUp(); return false;">
+  </div>
+</form>
+
+<form id="CG-mental-attributes-form" action="">
+  <div id="CG-mental-attributes">
+      <fieldset>
+          <h2>Mental Attributes</h2>
+            <p>Here, you get to choose your <strong>mental attributes</strong>:</p>
+            <ul>
+              <li>Your <strong>intelligence</strong> determines how well your brain works in matters of knowledge acquisition, knowledge processing, memory...</li>
+              <li>Your <strong>wits</strong> determines how clever you are in terms unrelated to knowledge and/or memory.</li>
+              <li>Your <strong>perception</strong> determines how sensitive you're regarding your five senses.</li>
+            </ul>
+          <p><strong>Important</strong>: You're up to distribute 6 points in total.</p>
+        <h5>Value legend</h5>
+          <ol>
+            <li><strong>Under average</strong> - You are not as good or capable as the rest of living (or undead) beings who surround you.</li>
+            <li><strong>Average</strong> - You are just as good or capable as most of living beings (or undead) around you.</li>
+            <li><strong>Above average</strong> - You are slightly better or more capable than the the rest of living beings (or undead) who surround you.</li>
+            <li><strong>Excellent</strong> - You are much better or much more capable than many of the living (or undead) beings around you.</li>
+            <li><strong>Master</strong> - You are so incredibly better or more capable than the rest of living (or undead) beings who you coexist with.</li>
+          </ol>
+          <h3>Intelligence</h3>
+      <label for="intelligence-1"><input id="intelligence-1" value="1" type="radio" name="intelligence" class="inline" required/>1</label>
+      <label for="intelligence-2"><input id="intelligence-2" value="2" type="radio" name="intelligence" class="inline" required checked="checked"/>2</label>
+      <label for="intelligence-3"><input id="intelligence-3" value="3" type="radio" name="intelligence" class="inline" required/>3</label>
+      <label for="intelligence-4"><input id="intelligence-4" value="4" type="radio" name="intelligence" class="inline" required/>4</label>
+      <label for="intelligence-5"><input id="intelligence-5" value="5" type="radio" name="intelligence" class="inline" required/>5</label>
+          <h3>Wits</h3>
+      <label for="wits-1"><input id="wits-1" value="1" type="radio" name="wits" class="inline" required/>1</label>
+      <label for="wits-2"><input id="wits-2" value="2" type="radio" name="wits" class="inline" required checked="checked"/>2</label>
+      <label for="wits-3"><input id="wits-3" value="3" type="radio" name="wits" class="inline" required/>3</label>
+      <label for="wits-4"><input id="wits-4" value="4" type="radio" name="wits" class="inline" required/>4</label>
+      <label for="wits-5"><input id="wits-5" value="5" type="radio" name="wits" class="inline" required/>5</label>
+          <h3>Perception</h3>
+      <label for="perception-1"><input id="perception-1" value="1" type="radio" name="perception" class="inline" required/>1</label>
+      <label for="perception-2"><input id="perception-2" value="2" type="radio" name="perception" class="inline" required checked="checked"/>2</label>
+      <label for="perception-3"><input id="perception-3" value="3" type="radio" name="perception" class="inline" required/>3</label>
+      <label for="perception-4"><input id="perception-4" value="4" type="radio" name="perception" class="inline" required/>4</label>
+      <label for="perception-5"><input id="perception-5" value="5" type="radio" name="perception" class="inline" required/>5</label>
+          </fieldset>
+          <input id="submit-4" type="submit" value="Submit" onclick="mentalAttributesSetUp(); return false;">
+  </div>
+</form>
+
+  <div id="attributes">
+    <div id="physical-attributes">
+      <div id="physical"><h4>Physical</h4></div>
+        <span class="attribute"><strong>Strength: </strong><span id="strengthScore">1</span>/5</span>
+        <span class="attribute"><strong>Dexterity: </strong><span id="dexterityScore">1</span>/5</span>
+        <span class="attribute"><strong>Stamina: </strong><span id="staminaScore">1</span>/5</span>    
+    </div>
+    <div id="social-attributes">
+      <div id="social"><h4>Social</h4></div>
+        <span class="attribute"><strong>Charisma: </strong><span id="charismaScore">1</span>/5</span>
+        <span class="attribute"><strong>Looks: </strong><span id="looksScore">1</span>/5</span>
+        <span class="attribute"><strong>Vibe: </strong><span id="vibeScore">1</span>/5</span>    
+    </div>
+    <div id="mental-attributes">
+      <div id="mental"><h4>Mental</h4></div>
+        <span class="attribute"><strong>Intelligence: </strong><span id="intelligenceScore">1</span>/5</span>
+        <span class="attribute"><strong>Wits: </strong><span id="witsScore">1</span>/5</span>
+        <span class="attribute"><strong>Perception: </strong><span id="perceptionScore">1</span>/5</span>    
+    </div>
+  </div>
+
+  <form id="CG-skills-priority-form" action="">
+    <div id="CG-mental-attributes">
+      <h2>What have you been into?</h2>
+        <p>Here, you get to choose which set of kills you've better at:</p>
+        <ul>
+          <li><strong>Talents</strong> are skills somehow inherent to you which you've just gotten better at.</li>
+          <li><strong>Techniques</strong> have been learnt thru hours of practice.</li>
+          <li><strong>Knowledge</strong> is a skill you learn thru studying.</li>
+        </ul>
+      <fieldset>
+        <h3>Talents</h3>
+          <label for="talents-1"><input id="talents-1" value="1" type="radio" name="talents" class="inline" required/>1st</label>
+          <label for="talents-2"><input id="talents-2" value="2" type="radio" name="talents" class="inline" required/>2nd</label>
+          <label for="talents-3"><input id="talents-3" value="3" type="radio" name="talents" class="inline" required/>3rd</label>
+        <h3>Techniques</h3>
+          <label for="techniques-1"><input id="techniques-1" value="1" type="radio" name="techniques" class="inline" required/>1st</label>
+          <label for="techniques-2"><input id="techniques-2" value="2" type="radio" name="techniques" class="inline" required/>2nd</label>
+          <label for="techniques-3"><input id="techniques-3" value="3" type="radio" name="techniques" class="inline" required/>3rd</label>
+        <h3>Knowledge</h3>
+          <label for="knowledge-1"><input id="knowledge-1" value="1" type="radio" name="knowledge" class="inline" required/>1st</label>
+          <label for="knowledge-2"><input id="knowledge-2" value="2" type="radio" name="knowledge" class="inline" required/>2nd</label>
+          <label for="knowledge-3"><input id="knowledge-3" value="3" type="radio" name="knowledge" class="inline" required/>3rd</label>
+      </fieldset>
+            <input id="submit-5" type="submit" value="Submit" onclick="assignSkillsPriorities(); return false;">
+    </div>
+  </form>
+
+  <form id="CG-talents-form" action="">
+    <div id="CG-talents">
+      <fieldset>
+        <h2>Which are your talents?</h2>
+          <p>Set up your talents. You have <strong><span id="talentsPoints">0</span></strong> points to distribute in talents.</p>
+          <p>You can find a definition of each talent in our <a href="#" target="_blank">reference page</a> [COMING SOON].</p>
+            <h5>Value legend</h5>
+              <ol  start="0">
+                <li><strong>Zero</strong> - Skills that you have not or know nothing about. You can still try to overcome a situation involving a skill that you lack by just using your natural-born attributes.</li>
+                <li><strong>Under average</strong> - You are not as good or capable as the rest of living (or undead) beings who surround you.</li>
+                <li><strong>Average</strong> - You are just as good or capable as most of living beings (or undead) around you.</li>
+                <li><strong>Above average</strong> - You are slightly better or more capable than the the rest of living beings (or undead) who surround you.</li>
+                <li><strong>Excellent</strong> - You are much better or much more capable than many of the living (or undead) beings around you.</li>
+                <li><strong>Master</strong> - You are so incredibly better or more capable than the rest of living (or undead) beings who you coexist with.</li>
+              </ol>
+        <h3>Alertness</h3>
+          <label for="alertness-0"><input id="alertness-0" value="0" type="radio" name="alertness" class="inline" required checked="checked"/>0</label>
+          <label for="alertness-1"><input id="alertness-1" value="1" type="radio" name="alertness" class="inline" required/>1</label>
+          <label for="alertness-2"><input id="alertness-2" value="2" type="radio" name="alertness" class="inline" required/>2</label>
+          <label for="alertness-3"><input id="alertness-3" value="3" type="radio" name="alertness" class="inline" required/>3</label>
+          <label for="alertness-4"><input id="alertness-4" value="4" type="radio" name="alertness" class="inline" required/>4</label>
+          <label for="alertness-5"><input id="alertness-5" value="5" type="radio" name="alertness" class="inline" required/>5</label>
+        <h3>Athletics</h3>
+          <label for="athletics-0"><input id="athletics-0" value="0" type="radio" name="athletics" class="inline" required checked="checked"/>0</label>
+          <label for="athletics-1"><input id="athletics-1" value="1" type="radio" name="athletics" class="inline" required/>1</label>
+          <label for="athletics-2"><input id="athletics-2" value="2" type="radio" name="athletics" class="inline" required/>2</label>
+          <label for="athletics-3"><input id="athletics-3" value="3" type="radio" name="athletics" class="inline" required/>3</label>
+          <label for="athletics-4"><input id="athletics-4" value="4" type="radio" name="athletics" class="inline" required/>4</label>
+          <label for="athletics-5"><input id="athletics-5" value="5" type="radio" name="athletics" class="inline" required/>5</label>
+        <h3>Awareness</h3>
+          <label for="awareness-0"><input id="awareness-0" value="0" type="radio" name="awareness" class="inline" required checked="checked"/>0</label>
+          <label for="awareness-1"><input id="awareness-1" value="1" type="radio" name="awareness" class="inline" required/>1</label>
+          <label for="awareness-2"><input id="awareness-2" value="2" type="radio" name="awareness" class="inline" required/>2</label>
+          <label for="awareness-3"><input id="awareness-3" value="3" type="radio" name="awareness" class="inline" required/>3</label>
+          <label for="awareness-4"><input id="awareness-4" value="4" type="radio" name="awareness" class="inline" required/>4</label>
+          <label for="awareness-5"><input id="awareness-5" value="5" type="radio" name="awareness" class="inline" required/>5</label>
+        <h3>Brawl</h3>
+          <label for="brawl-0"><input id="brawl-0" value="0" type="radio" name="brawl" class="inline" required checked="checked"/>0</label>
+          <label for="brawl-1"><input id="brawl-1" value="1" type="radio" name="brawl" class="inline" required/>1</label>
+          <label for="brawl-2"><input id="brawl-2" value="2" type="radio" name="brawl" class="inline" required/>2</label>
+          <label for="brawl-3"><input id="brawl-3" value="3" type="radio" name="brawl" class="inline" required/>3</label>
+          <label for="brawl-4"><input id="brawl-4" value="4" type="radio" name="brawl" class="inline" required/>4</label>
+          <label for="brawl-5"><input id="brawl-5" value="5" type="radio" name="brawl" class="inline" required/>5</label>
+        <h3>Empathy</h3>
+          <label for="empathy-0"><input id="empathy-0" value="0" type="radio" name="empathy" class="inline" required checked="checked"/>0</label>
+          <label for="empathy-1"><input id="empathy-1" value="1" type="radio" name="empathy" class="inline" required/>1</label>
+          <label for="empathy-2"><input id="empathy-2" value="2" type="radio" name="empathy" class="inline" required/>2</label>
+          <label for="empathy-3"><input id="empathy-3" value="3" type="radio" name="empathy" class="inline" required/>3</label>
+          <label for="empathy-4"><input id="empathy-4" value="4" type="radio" name="empathy" class="inline" required/>4</label>
+          <label for="empathy-5"><input id="empathy-5" value="5" type="radio" name="empathy" class="inline" required/>5</label>
+        <h3>Expression</h3>
+          <label for="expression-0"><input id="expression-0" value="0" type="radio" name="expression" class="inline" required checked="checked"/>0</label>
+          <label for="expression-1"><input id="expression-1" value="1" type="radio" name="expression" class="inline" required/>1</label>
+          <label for="expression-2"><input id="expression-2" value="2" type="radio" name="expression" class="inline" required/>2</label>
+          <label for="expression-3"><input id="expression-3" value="3" type="radio" name="expression" class="inline" required/>3</label>
+          <label for="expression-4"><input id="expression-4" value="4" type="radio" name="expression" class="inline" required/>4</label>
+          <label for="expression-5"><input id="expression-5" value="5" type="radio" name="expression" class="inline" required/>5</label>
+        <h3>Intimidation</h3>
+          <label for="intimidation-0"><input id="intimidation-0" value="0" type="radio" name="intimidation" class="inline" required checked="checked"/>0</label>
+          <label for="intimidation-1"><input id="intimidation-1" value="1" type="radio" name="intimidation" class="inline" required/>1</label>
+          <label for="intimidation-2"><input id="intimidation-2" value="2" type="radio" name="intimidation" class="inline" required/>2</label>
+          <label for="intimidation-3"><input id="intimidation-3" value="3" type="radio" name="intimidation" class="inline" required/>3</label>
+          <label for="intimidation-4"><input id="intimidation-4" value="4" type="radio" name="intimidation" class="inline" required/>4</label>
+          <label for="intimidation-5"><input id="intimidation-5" value="5" type="radio" name="intimidation" class="inline" required/>5</label>
+        <h3>Leadership</h3>
+          <label for="leadership-0"><input id="leadership-0" value="0" type="radio" name="leadership" class="inline" required checked="checked"/>0</label>
+          <label for="leadership-1"><input id="leadership-1" value="1" type="radio" name="leadership" class="inline" required/>1</label>
+          <label for="leadership-2"><input id="leadership-2" value="2" type="radio" name="leadership" class="inline" required/>2</label>
+          <label for="leadership-3"><input id="leadership-3" value="3" type="radio" name="leadership" class="inline" required/>3</label>
+          <label for="leadership-4"><input id="leadership-4" value="4" type="radio" name="leadership" class="inline" required/>4</label>
+          <label for="leadership-5"><input id="leadership-5" value="5" type="radio" name="leadership" class="inline" required/>5</label>
+        <h3>Streetwise</h3>
+          <label for="streetwise-0"><input id="streetwise-0" value="0" type="radio" name="streetwise" class="inline" required checked="checked"/>0</label>
+          <label for="streetwise-1"><input id="streetwise-1" value="1" type="radio" name="streetwise" class="inline" required/>1</label>
+          <label for="streetwise-2"><input id="streetwise-2" value="2" type="radio" name="streetwise" class="inline" required/>2</label>
+          <label for="streetwise-3"><input id="streetwise-3" value="3" type="radio" name="streetwise" class="inline" required/>3</label>
+          <label for="streetwise-4"><input id="streetwise-4" value="4" type="radio" name="streetwise" class="inline" required/>4</label>
+          <label for="streetwise-5"><input id="streetwise-5" value="5" type="radio" name="streetwise" class="inline" required/>5</label>
+        <h3>Subterfuge</h3>
+          <label for="subterfuge-0"><input id="subterfuge-0" value="0" type="radio" name="subterfuge" class="inline" required checked="checked"/>0</label>
+          <label for="subterfuge-1"><input id="subterfuge-1" value="1" type="radio" name="subterfuge" class="inline" required/>1</label>
+          <label for="subterfuge-2"><input id="subterfuge-2" value="2" type="radio" name="subterfuge" class="inline" required/>2</label>
+          <label for="subterfuge-3"><input id="subterfuge-3" value="3" type="radio" name="subterfuge" class="inline" required/>3</label>
+          <label for="subterfuge-4"><input id="subterfuge-4" value="4" type="radio" name="subterfuge" class="inline" required/>4</label>
+          <label for="subterfuge-5"><input id="subterfuge-5" value="5" type="radio" name="subterfuge" class="inline" required/>5</label>      
+      </fieldset>
+            <input id="submit-6" type="submit" value="Submit" onclick="assignTalents(); return false;">
+    </div>
+  </form>
+
+  <form id="CG-techniques-form" action="">
+    <div id="CG-techniques">
+      <fieldset>
+        <h2>Which are your techniques?</h2>
+          <p>Set up your techniques. You have <strong><span id="techniquesPoints">0</span></strong> points to distribute in techniques.</p>
+          <p>You can find a definition of each technique in our <a href="#" target="_blank">reference page</a> [COMING SOON].</p>
+            <h5>Value legend</h5>
+              <ol  start="0">
+                <li><strong>Zero</strong> - Skills that you have not or know nothing about. You can still try to overcome a situation involving a skill that you lack by just using your natural-born attributes.</li>
+                <li><strong>Under average</strong> - You are not as good or capable as the rest of living (or undead) beings who surround you.</li>
+                <li><strong>Average</strong> - You are just as good or capable as most of living beings (or undead) around you.</li>
+                <li><strong>Above average</strong> - You are slightly better or more capable than the the rest of living beings (or undead) who surround you.</li>
+                <li><strong>Excellent</strong> - You are much better or much more capable than many of the living (or undead) beings around you.</li>
+                <li><strong>Master</strong> - You are so incredibly better or more capable than the rest of living (or undead) beings who you coexist with.</li>
+              </ol>
+        <h3>Animal Ken</h3>
+          <label for="animalKen-0"><input id="animalKen-0" value="0" type="radio" name="animalKen" class="inline" required checked="checked"/>0</label>
+          <label for="animalKen-1"><input id="animalKen-1" value="1" type="radio" name="animalKen" class="inline" required/>1</label>
+          <label for="animalKen-2"><input id="animalKen-2" value="2" type="radio" name="animalKen" class="inline" required/>2</label>
+          <label for="animalKen-3"><input id="animalKen-3" value="3" type="radio" name="animalKen" class="inline" required/>3</label>
+          <label for="animalKen-4"><input id="animalKen-4" value="4" type="radio" name="animalKen" class="inline" required/>4</label>
+          <label for="animalKen-5"><input id="animalKen-5" value="5" type="radio" name="animalKen" class="inline" required/>5</label>
+        <h3>Crafts</h3>
+          <label for="crafts-0"><input id="crafts-0" value="0" type="radio" name="crafts" class="inline" required checked="checked"/>0</label>
+          <label for="crafts-1"><input id="crafts-1" value="1" type="radio" name="crafts" class="inline" required/>1</label>
+          <label for="crafts-2"><input id="crafts-2" value="2" type="radio" name="crafts" class="inline" required/>2</label>
+          <label for="crafts-3"><input id="crafts-3" value="3" type="radio" name="crafts" class="inline" required/>3</label>
+          <label for="crafts-4"><input id="crafts-4" value="4" type="radio" name="crafts" class="inline" required/>4</label>
+          <label for="crafts-5"><input id="crafts-5" value="5" type="radio" name="crafts" class="inline" required/>5</label>
+        <h3>Riding</h3>
+          <label for="riding-0"><input id="riding-0" value="0" type="radio" name="riding" class="inline" required checked="checked"/>0</label>
+          <label for="riding-1"><input id="riding-1" value="1" type="radio" name="riding" class="inline" required/>1</label>
+          <label for="riding-2"><input id="riding-2" value="2" type="radio" name="riding" class="inline" required/>2</label>
+          <label for="riding-3"><input id="riding-3" value="3" type="radio" name="riding" class="inline" required/>3</label>
+          <label for="riding-4"><input id="riding-4" value="4" type="radio" name="riding" class="inline" required/>4</label>
+          <label for="riding-5"><input id="riding-5" value="5" type="radio" name="riding" class="inline" required/>5</label>
+        <h3>Etiquette</h3>
+          <label for="etiquette-0"><input id="etiquette-0" value="0" type="radio" name="etiquette" class="inline" required checked="checked"/>0</label>
+          <label for="etiquette-1"><input id="etiquette-1" value="1" type="radio" name="etiquette" class="inline" required/>1</label>
+          <label for="etiquette-2"><input id="etiquette-2" value="2" type="radio" name="etiquette" class="inline" required/>2</label>
+          <label for="etiquette-3"><input id="etiquette-3" value="3" type="radio" name="etiquette" class="inline" required/>3</label>
+          <label for="etiquette-4"><input id="etiquette-4" value="4" type="radio" name="etiquette" class="inline" required/>4</label>
+          <label for="etiquette-5"><input id="etiquette-5" value="5" type="radio" name="etiquette" class="inline" required/>5</label>
+        <h3>Archery</h3>
+          <label for="archery-0"><input id="archery-0" value="0" type="radio" name="archery" class="inline" required checked="checked"/>0</label>
+          <label for="archery-1"><input id="archery-1" value="1" type="radio" name="archery" class="inline" required/>1</label>
+          <label for="archery-2"><input id="archery-2" value="2" type="radio" name="archery" class="inline" required/>2</label>
+          <label for="archery-3"><input id="archery-3" value="3" type="radio" name="archery" class="inline" required/>3</label>
+          <label for="archery-4"><input id="archery-4" value="4" type="radio" name="archery" class="inline" required/>4</label>
+          <label for="archery-5"><input id="archery-5" value="5" type="radio" name="archery" class="inline" required/>5</label>
+        <h3>Larceny</h3>
+          <label for="larceny-0"><input id="larceny-0" value="0" type="radio" name="larceny" class="inline" required checked="checked"/>0</label>
+          <label for="larceny-1"><input id="larceny-1" value="1" type="radio" name="larceny" class="inline" required/>1</label>
+          <label for="larceny-2"><input id="larceny-2" value="2" type="radio" name="larceny" class="inline" required/>2</label>
+          <label for="larceny-3"><input id="larceny-3" value="3" type="radio" name="larceny" class="inline" required/>3</label>
+          <label for="larceny-4"><input id="larceny-4" value="4" type="radio" name="larceny" class="inline" required/>4</label>
+          <label for="larceny-5"><input id="larceny-5" value="5" type="radio" name="larceny" class="inline" required/>5</label>
+        <h3>Melee</h3>
+          <label for="melee-0"><input id="melee-0" value="0" type="radio" name="melee" class="inline" required checked="checked"/>0</label>
+          <label for="melee-1"><input id="melee-1" value="1" type="radio" name="melee" class="inline" required/>1</label>
+          <label for="melee-2"><input id="melee-2" value="2" type="radio" name="melee" class="inline" required/>2</label>
+          <label for="melee-3"><input id="melee-3" value="3" type="radio" name="melee" class="inline" required/>3</label>
+          <label for="melee-4"><input id="melee-4" value="4" type="radio" name="melee" class="inline" required/>4</label>
+          <label for="melee-5"><input id="melee-5" value="5" type="radio" name="melee" class="inline" required/>5</label>
+        <h3>Performance</h3>
+          <label for="performance-0"><input id="performance-0" value="0" type="radio" name="performance" class="inline" required checked="checked"/>0</label>
+          <label for="performance-1"><input id="performance-1" value="1" type="radio" name="performance" class="inline" required/>1</label>
+          <label for="performance-2"><input id="performance-2" value="2" type="radio" name="performance" class="inline" required/>2</label>
+          <label for="performance-3"><input id="performance-3" value="3" type="radio" name="performance" class="inline" required/>3</label>
+          <label for="performance-4"><input id="performance-4" value="4" type="radio" name="performance" class="inline" required/>4</label>
+          <label for="performance-5"><input id="performance-5" value="5" type="radio" name="performance" class="inline" required/>5</label>
+        <h3>Stealth</h3>
+          <label for="stealth-0"><input id="stealth-0" value="0" type="radio" name="stealth" class="inline" required checked="checked"/>0</label>
+          <label for="stealth-1"><input id="stealth-1" value="1" type="radio" name="stealth" class="inline" required/>1</label>
+          <label for="stealth-2"><input id="stealth-2" value="2" type="radio" name="stealth" class="inline" required/>2</label>
+          <label for="stealth-3"><input id="stealth-3" value="3" type="radio" name="stealth" class="inline" required/>3</label>
+          <label for="stealth-4"><input id="stealth-4" value="4" type="radio" name="stealth" class="inline" required/>4</label>
+          <label for="stealth-5"><input id="stealth-5" value="5" type="radio" name="stealth" class="inline" required/>5</label>
+        <h3>Survival</h3>
+          <label for="survival-0"><input id="survival-0" value="0" type="radio" name="survival" class="inline" required checked="checked"/>0</label>
+          <label for="survival-1"><input id="survival-1" value="1" type="radio" name="survival" class="inline" required/>1</label>
+          <label for="survival-2"><input id="survival-2" value="2" type="radio" name="survival" class="inline" required/>2</label>
+          <label for="survival-3"><input id="survival-3" value="3" type="radio" name="survival" class="inline" required/>3</label>
+          <label for="survival-4"><input id="survival-4" value="4" type="radio" name="survival" class="inline" required/>4</label>
+          <label for="survival-5"><input id="survival-5" value="5" type="radio" name="survival" class="inline" required/>5</label>      
+      </fieldset>
+            <input id="submit-7" type="submit" value="Submit" onclick="assignTechniques(); return false;">
+    </div>
+  </form>
+
+  <form id="CG-knowledge-form" action="">
+    <div id="CG-knowledge">
+      <fieldset>
+        <h2>What is your knowledge all about?</h2>
+          <p>Set up your knowledge. You have <strong><span id="knowledgePoints">0</span></strong> points to distribute in knowledge.</p>
+          <p>You can find a definition of each kind of knowledge in our <a href="#" target="_blank">reference page</a> [COMING SOON].</p>
+            <h5>Value legend</h5>
+              <ol  start="0">
+                <li><strong>Zero</strong> - Skills that you have not or know nothing about. You can still try to overcome a situation involving a skill that you lack by just using your natural-born attributes.</li>
+                <li><strong>Under average</strong> - You are not as good or capable as the rest of living (or undead) beings who surround you.</li>
+                <li><strong>Average</strong> - You are just as good or capable as most of living beings (or undead) around you.</li>
+                <li><strong>Above average</strong> - You are slightly better or more capable than the the rest of living beings (or undead) who surround you.</li>
+                <li><strong>Excellent</strong> - You are much better or much more capable than many of the living (or undead) beings around you.</li>
+                <li><strong>Master</strong> - You are so incredibly better or more capable than the rest of living (or undead) beings who you coexist with.</li>
+              </ol>
+        <h3>Academy</h3>
+          <label for="academy-0"><input id="academy-0" value="0" type="radio" name="academy" class="inline" required checked="checked"/>0</label>
+          <label for="academy-1"><input id="academy-1" value="1" type="radio" name="academy" class="inline" required/>1</label>
+          <label for="academy-2"><input id="academy-2" value="2" type="radio" name="academy" class="inline" required/>2</label>
+          <label for="academy-3"><input id="academy-3" value="3" type="radio" name="academy" class="inline" required/>3</label>
+          <label for="academy-4"><input id="academy-4" value="4" type="radio" name="academy" class="inline" required/>4</label>
+          <label for="academy-5"><input id="academy-5" value="5" type="radio" name="academy" class="inline" required/>5</label>
+        <h3>Arts</h3>
+          <label for="arts-0"><input id="arts-0" value="0" type="radio" name="arts" class="inline" required checked="checked"/>0</label>
+          <label for="arts-1"><input id="arts-1" value="1" type="radio" name="arts" class="inline" required/>1</label>
+          <label for="arts-2"><input id="arts-2" value="2" type="radio" name="arts" class="inline" required/>2</label>
+          <label for="arts-3"><input id="arts-3" value="3" type="radio" name="arts" class="inline" required/>3</label>
+          <label for="arts-4"><input id="arts-4" value="4" type="radio" name="arts" class="inline" required/>4</label>
+          <label for="arts-5"><input id="arts-5" value="5" type="radio" name="arts" class="inline" required/>5</label>
+        <h3>Finances</h3>
+          <label for="finances-0"><input id="finances-0" value="0" type="radio" name="finances" class="inline" required checked="checked"/>0</label>
+          <label for="finances-1"><input id="finances-1" value="1" type="radio" name="finances" class="inline" required/>1</label>
+          <label for="finances-2"><input id="finances-2" value="2" type="radio" name="finances" class="inline" required/>2</label>
+          <label for="finances-3"><input id="finances-3" value="3" type="radio" name="finances" class="inline" required/>3</label>
+          <label for="finances-4"><input id="finances-4" value="4" type="radio" name="finances" class="inline" required/>4</label>
+          <label for="finances-5"><input id="finances-5" value="5" type="radio" name="finances" class="inline" required/>5</label>
+        <h3>Investigation</h3>
+          <label for="investigation-0"><input id="investigation-0" value="0" type="radio" name="investigation" class="inline" required checked="checked"/>0</label>
+          <label for="investigation-1"><input id="investigation-1" value="1" type="radio" name="investigation" class="inline" required/>1</label>
+          <label for="investigation-2"><input id="investigation-2" value="2" type="radio" name="investigation" class="inline" required/>2</label>
+          <label for="investigation-3"><input id="investigation-3" value="3" type="radio" name="investigation" class="inline" required/>3</label>
+          <label for="investigation-4"><input id="investigation-4" value="4" type="radio" name="investigation" class="inline" required/>4</label>
+          <label for="investigation-5"><input id="investigation-5" value="5" type="radio" name="investigation" class="inline" required/>5</label>
+        <h3>Law</h3>
+          <label for="law-0"><input id="law-0" value="0" type="radio" name="law" class="inline" required checked="checked"/>0</label>
+          <label for="law-1"><input id="law-1" value="1" type="radio" name="law" class="inline" required/>1</label>
+          <label for="law-2"><input id="law-2" value="2" type="radio" name="law" class="inline" required/>2</label>
+          <label for="law-3"><input id="law-3" value="3" type="radio" name="law" class="inline" required/>3</label>
+          <label for="law-4"><input id="law-4" value="4" type="radio" name="law" class="inline" required/>4</label>
+          <label for="law-5"><input id="law-5" value="5" type="radio" name="law" class="inline" required/>5</label>
+        <h3>Medicine</h3>
+          <label for="medicine-0"><input id="medicine-0" value="0" type="radio" name="medicine" class="inline" required checked="checked"/>0</label>
+          <label for="medicine-1"><input id="medicine-1" value="1" type="radio" name="medicine" class="inline" required/>1</label>
+          <label for="medicine-2"><input id="medicine-2" value="2" type="radio" name="medicine" class="inline" required/>2</label>
+          <label for="medicine-3"><input id="medicine-3" value="3" type="radio" name="medicine" class="inline" required/>3</label>
+          <label for="medicine-4"><input id="medicine-4" value="4" type="radio" name="medicine" class="inline" required/>4</label>
+          <label for="medicine-5"><input id="medicine-5" value="5" type="radio" name="medicine" class="inline" required/>5</label>
+        <h3>Occultism</h3>
+          <label for="occultism-0"><input id="occultism-0" value="0" type="radio" name="occultism" class="inline" required checked="checked"/>0</label>
+          <label for="occultism-1"><input id="occultism-1" value="1" type="radio" name="occultism" class="inline" required/>1</label>
+          <label for="occultism-2"><input id="occultism-2" value="2" type="radio" name="occultism" class="inline" required/>2</label>
+          <label for="occultism-3"><input id="occultism-3" value="3" type="radio" name="occultism" class="inline" required/>3</label>
+          <label for="occultism-4"><input id="occultism-4" value="4" type="radio" name="occultism" class="inline" required/>4</label>
+          <label for="occultism-5"><input id="occultism-5" value="5" type="radio" name="occultism" class="inline" required/>5</label>
+        <h3>Politics</h3>
+          <label for="politics-0"><input id="politics-0" value="0" type="radio" name="politics" class="inline" required checked="checked"/>0</label>
+          <label for="politics-1"><input id="politics-1" value="1" type="radio" name="politics" class="inline" required/>1</label>
+          <label for="politics-2"><input id="politics-2" value="2" type="radio" name="politics" class="inline" required/>2</label>
+          <label for="politics-3"><input id="politics-3" value="3" type="radio" name="politics" class="inline" required/>3</label>
+          <label for="politics-4"><input id="politics-4" value="4" type="radio" name="politics" class="inline" required/>4</label>
+          <label for="politics-5"><input id="politics-5" value="5" type="radio" name="politics" class="inline" required/>5</label>
+        <h3>Science</h3>
+          <label for="science-0"><input id="science-0" value="0" type="radio" name="science" class="inline" required checked="checked"/>0</label>
+          <label for="science-1"><input id="science-1" value="1" type="radio" name="science" class="inline" required/>1</label>
+          <label for="science-2"><input id="science-2" value="2" type="radio" name="science" class="inline" required/>2</label>
+          <label for="science-3"><input id="science-3" value="3" type="radio" name="science" class="inline" required/>3</label>
+          <label for="science-4"><input id="science-4" value="4" type="radio" name="science" class="inline" required/>4</label>
+          <label for="science-5"><input id="science-5" value="5" type="radio" name="science" class="inline" required/>5</label>
+        <h3>Tech</h3>
+          <label for="tech-0"><input id="tech-0" value="0" type="radio" name="tech" class="inline" required checked="checked"/>0</label>
+          <label for="tech-1"><input id="tech-1" value="1" type="radio" name="tech" class="inline" required/>1</label>
+          <label for="tech-2"><input id="tech-2" value="2" type="radio" name="tech" class="inline" required/>2</label>
+          <label for="tech-3"><input id="tech-3" value="3" type="radio" name="tech" class="inline" required/>3</label>
+          <label for="tech-4"><input id="tech-4" value="4" type="radio" name="tech" class="inline" required/>4</label>
+          <label for="tech-5"><input id="tech-5" value="5" type="radio" name="tech" class="inline" required/>5</label>      
+      </fieldset>
+            <input id="submit-8" type="submit" value="Submit" onclick="assignKnowledge(); return false;">
+    </div>
+  </form>
+
+  <div id="skills">
+    <div id="talent-skills">
+      <div id="talents"><h4>Talents</h4></div>
+        <span class="skill"><strong>Alertness: </strong><span id="alertnessScore">0</span>/5</span>
+        <span class="skill"><strong>Athletics: </strong><span id="athleticsScore">0</span>/5</span>
+        <span class="skill"><strong>Awareness: </strong><span id="awarenessScore">0</span>/5</span>    
+        <span class="skill"><strong>Brawl: </strong><span id="brawlScore">0</span>/5</span>
+        <span class="skill"><strong>Empathy: </strong><span id="empathyScore">0</span>/5</span>
+        <span class="skill"><strong>Expression: </strong><span id="expressionScore">0</span>/5</span>    
+        <span class="skill"><strong>Intimidation: </strong><span id="intimidationScore">0</span>/5</span>
+        <span class="skill"><strong>Leadership: </strong><span id="leadershipScore">0</span>/5</span>
+        <span class="skill"><strong>Streetwise: </strong><span id="streetwiseScore">0</span>/5</span>    
+        <span class="skill"><strong>Subterfuge: </strong><span id="subterfugeScore">0</span>/5</span>    
+    </div>
+    <div id="technique-skills">
+      <div id="techniques"><h4>Techniques</h4></div>
+        <span class="skill"><strong>Animal Ken: </strong><span id="animalKenScore">0</span>/5</span>
+        <span class="skill"><strong>Crafts: </strong><span id="craftsScore">0</span>/5</span>
+        <span class="skill"><strong>Riding: </strong><span id="ridingScore">0</span>/5</span>    
+        <span class="skill"><strong>Etiquette: </strong><span id="etiquetteScore">0</span>/5</span>
+        <span class="skill"><strong>Archery: </strong><span id="archeryScore">0</span>/5</span>
+        <span class="skill"><strong>Larceny: </strong><span id="larcenyScore">0</span>/5</span>    
+        <span class="skill"><strong>Melee: </strong><span id="meleeScore">0</span>/5</span>
+        <span class="skill"><strong>Performance: </strong><span id="performanceScore">0</span>/5</span>
+        <span class="skill"><strong>Stealth: </strong><span id="stealthScore">0</span>/5</span>    
+        <span class="skill"><strong>Survival: </strong><span id="survivalScore">0</span>/5</span>
+    </div>
+    <div id="knowledge-skills">
+      <div id="knowledge"><h4>Knowledge</h4></div>
+        <span class="skill"><strong>Academy: </strong><span id="academyScore">0</span>/5</span>
+        <span class="skill"><strong>Arts: </strong><span id="artsScore">0</span>/5</span>
+        <span class="skill"><strong>Finances: </strong><span id="financesScore">0</span>/5</span>    
+        <span class="skill"><strong>Investigation: </strong><span id="investigationScore">0</span>/5</span>
+        <span class="skill"><strong>Law: </strong><span id="lawScore">0</span>/5</span>
+        <span class="skill"><strong>Medicine: </strong><span id="medicineScore">0</span>/5</span>    
+        <span class="skill"><strong>Occultism: </strong><span id="occultismScore">0</span>/5</span>
+        <span class="skill"><strong>Politics: </strong><span id="politicsScore">0</span>/5</span>
+        <span class="skill"><strong>Science: </strong><span id="scienceScore">0</span>/5</span>    
+        <span class="skill"><strong>Tech: </strong><span id="techScore">0</span>/5</span>    
+    </div>
+  </div>
+
+  <div id="spells-background-traits">
+    <div id="spells-skills">
+      <div id="spells"><h4>Spells</h4></div>
+        <span class="spell-background-trait grayed-out"><strong>Spell #1: </strong><span id="alertnessScore">0</span>/5</span>
+        <span class="spell-background-trait grayed-out"><strong>Spell #2: </strong><span id="alertnessScore">0</span>/5</span>
+        <span class="spell-background-trait grayed-out"><strong>Spell #3: </strong><span id="alertnessScore">0</span>/5</span>
+    </div>
+    <div id="background-skills">
+      <div id="background"><h4>Backgrounds</h4></div>
+        <span class="spell-background-trait grayed-out"><strong>Background #1: </strong><span id="animalKenScore">0</span>/5</span>
+        <span class="spell-background-trait grayed-out"><strong>Background #2: </strong><span id="animalKenScore">0</span>/5</span>
+        <span class="spell-background-trait grayed-out"><strong>Background #3: </strong><span id="animalKenScore">0</span>/5</span>
+      </div>
+    <div id="traits-skills">
+      <div id="traits"><h4>Traits</h4></div>
+        <span class="spell-background-trait"><strong>Conscience: </strong><span id="academyScore">0</span>/5</span>
+        <span class="spell-background-trait"><strong>Self-control: </strong><span id="artsScore">0</span>/5</span>
+        <span class="spell-background-trait"><strong>Courage: </strong><span id="financesScore">0</span>/5</span>    
+    </div>
+  </div>
+
+  <div id="inventory">
+    <h4 class="inventory">Inventory</h4>
+      <ul id="inventory-list">
+        <li><strong>Gold: </strong><span id="goldQty">0</span></li>
+      </ul>
+  </div>
+
+  <!-- <div id="monsterStats">
+    <span class="stat">Monster Name: <strong><span id="monsterName"></span></strong></span>
+    <span class="stat">Health: <strong><span id="monsterHealth"></span></strong></span>
+  </div> -->
+
+  <div id="text">[Character's creation taking place...]</div>
+  
+  <div id="controls">
+    <button id="button1" class="button">Go to store</button>
+    <button id="button2" class="button">Go to inn (eat)</button>
+    <button id="button3" class="button">Go to inn (sleep)</button>
+    <button id="button4" class="button">IDK yet</button>
+    <button id="button5" class="button">IDK yet</button>
+    <button id="button6" class="button">IDK yet</button>
+  </div>
+
+</div>
+
+</body>
+
+</html>
+
+

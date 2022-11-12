@@ -1,0 +1,205 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+    background-color: darkblue;
+    margin: 0;
+  }
+
+
+  h2 {
+    text-align: center;
+  }
+
+  h3 {
+    margin-top:30px;
+  }
+
+  h4 {
+    margin: 5px;
+  }
+
+  h5 {
+    text-align: center;
+    font-size: 18px;
+    margin:25px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  fieldset {
+    border: none;
+  }
+
+  legend {
+    font-style: italic;
+    font-size:13px;
+    margin-bottom:10px;
+  }
+
+  input,
+textarea,
+select {
+  margin: 10px 0 0 0;
+  padding: 10px 0;
+  border-radius: 125px;
+  width: 100%;
+  min-height: 2em;
+  text-indent:15px;
+  display:inline-flex;
+}
+
+#clock {
+  display: flex;
+  justify-content: end;
+  color:white;
+  font-size:24px;
+  margin: 0 auto;
+  padding: 10px 10px 10px 0;
+}
+
+  #text {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-style: italic;
+  }
+  
+  #game, #CG-box {
+    max-width: 800px;
+    background-color: lightgray;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  #controls {
+    display:flex;
+    justify-content: space-between;
+    border: 1px black solid;
+    padding: 5px;
+  }
+  
+  .button {
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: white;
+    color: blue;
+  }
+  
+  #stats, #identity {
+    border: 1px black solid;
+    color: black;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #attributes, #skills, #spells-background-traits {
+    display:flex;
+  }
+
+  #physical-attributes, #social-attributes, #mental-attributes, #talent-skills, #technique-skills, #knowledge-skills,
+  #spells-skills, #background-skills, #traits-skills {
+    width:33%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 1px black solid;
+    color: black;
+    padding:0;
+  }
+
+  #physical, #social, #mental, #talents, #techniques, #knowledge, #spells, #background, #traits {
+    width: 100%;
+    border-bottom: 1px black solid;
+  } 
+
+  #inventory {
+    border: 1px black solid;
+  }
+
+  .attribute, .skill, .spell-background-trait {
+    padding: 5px;
+  }
+
+  #monsterStats {
+    display: none;
+    border: 1px black solid;
+    color: white;
+    padding: 5px;
+    background-color: red;
+  }
+  
+  .stat, .identity-feature   {
+    padding-right: 10px;
+  }
+
+  .inventory {
+    margin:0;
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid black;
+  }
+
+  input[type="submit"] {
+    display: block;
+    width: 10%;
+    color: white;
+    margin: 1em auto;
+    height: 3em;
+    font-weight:bold;
+    text-align: center;
+    font-size: 1.1rem;
+    background-color: #3b3b4f;
+    border-color: white;
+    min-width: 300px;
+    cursor: pointer;
+  }
+
+    input[type="submit"]:hover {
+    color: #3b3b4f;
+    background-color: white;
+  }
+
+  #CG-physical-attributes-form {
+    display:none;
+  }
+
+  #CG-social-attributes-form {
+    display:none;
+  }
+
+  #CG-mental-attributes-form {
+    display:none;
+  }
+
+  #CG-skills-priority-form {
+    display:none;
+  }
+
+  #CG-talents-form {
+    display:none;
+  }
+
+  #CG-techniques-form {
+    display:none;
+  }
+
+  #CG-knowledge-form {
+    display:none;
+  }
+
+  .inline {
+    width: unset;
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+
+  .grayed-out {
+    color:gray
+  }
